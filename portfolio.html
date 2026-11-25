@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Atharv Jangid is a Python developer and computer science student building thoughtful software, web applications, and database tools.">
+    <meta name="theme-color" content="#f5f7fb">
+    <title>Atharv Jangid | Python Developer</title>
+
+    <style>
+        :root {
+            color-scheme: light;
+            --page: #f5f7fb;
+            --surface: #ffffff;
+            --surface-soft: #eef2f8;
+            --ink: #172338;
+            --muted: #64748b;
+            --line: #e2e8f0;
+            --accent: #3158c9;
+            --accent-hover: #2646a8;
+            --accent-soft: #e9efff;
+            --hero: #111d33;
+            --hero-muted: #b7c4d8;
+            --hero-line: rgba(255, 255, 255, 0.13);
+            --card-shadow: 0 16px 40px rgba(26, 43, 74, 0.06);
+        }
+
+        body[data-theme="dark"] {
+            color-scheme: dark;
+            --page: #0d1421;
+            --surface: #151f30;
+            --surface-soft: #1c293d;
+            --ink: #e8edf5;
+            --muted: #a6b3c5;
+            --line: #29364b;
+            --accent: #91aaff;
+            --accent-hover: #b4c3ff;
+            --accent-soft: #222f4b;
+            --hero: #111d33;
+            --hero-muted: #b7c4d8;
+            --hero-line: rgba(255, 255, 255, 0.13);
+            --card-shadow: 0 16px 40px rgba(0, 0, 0, 0.16);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 6rem;
+        }
+
+        body {
+            margin: 0;
+            background: var(--page);
+            color: var(--ink);
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            font-size: 16px;
+            line-height: 1.65;
+            transition: background-color 0.25s ease, color 0.25s ease;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        a:focus-visible,
+        button:focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 4px;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: 0.75rem;
+            left: 0.75rem;
+            z-index: 10;
+            padding: 0.65rem 1rem;
+            transform: translateY(-160%);
+            border-radius: 0.6rem;
+            background: var(--surface);
+            color: var(--ink);
+        }
+
+        .skip-link:focus {
+            transform: translateY(0);
+        }
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 5;
+            border-bottom: 1px solid var(--line);
+            background: color-mix(in srgb, var(--page) 92%, transparent);
+            backdrop-filter: blur(16px);
+        }
+
+        .nav-wrap,
+        .container {
+            width: min(1120px, calc(100% - 3rem));
+            margin-inline: auto;
+        }
+
+        .nav-wrap {
+            display: flex;
+            min-height: 76px;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
+            color: var(--ink);
+            font-size: 0.98rem;
+            font-weight: 750;
+            letter-spacing: -0.02em;
+            text-decoration: none;
+        }
+
+        .brand-mark {
+            display: grid;
+            width: 2.25rem;
+            aspect-ratio: 1;
+            place-items: center;
+            border-radius: 0.7rem;
+            background: var(--hero);
+            color: #ffffff;
+            font-size: 0.78rem;
+            letter-spacing: 0.04em;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: clamp(0.9rem, 2.5vw, 1.8rem);
+        }
+
+        .nav-links a {
+            color: var(--muted);
+            font-size: 0.88rem;
+            font-weight: 550;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .theme-toggle {
+            display: grid;
+            width: 2.65rem;
+            aspect-ratio: 1;
+            place-items: center;
+            border: 1px solid var(--line);
+            border-radius: 50%;
+            background: var(--surface);
+            color: var(--ink);
+            cursor: pointer;
+            transition: border-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent);
+        }
+
+        .theme-toggle svg {
+            width: 1.15rem;
+            height: 1.15rem;
+            fill: none;
+            stroke: currentColor;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-width: 1.7;
+        }
+
+        .theme-toggle .sun-icon,
+        body[data-theme="dark"] .theme-toggle .moon-icon {
+            display: none;
+        }
+
+        body[data-theme="dark"] .theme-toggle .sun-icon {
+            display: block;
+        }
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+            padding: clamp(4.5rem, 9vw, 7.5rem) 0;
+            background:
+                radial-gradient(ellipse at 82% 18%, rgba(80, 111, 190, 0.28), transparent 38%),
+                var(--hero);
+            color: #ffffff;
+        }
+
+        .hero::after {
+            position: absolute;
+            z-index: -1;
+            inset: 0;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.15) 0.7px, transparent 0.7px);
+            background-size: 22px 22px;
+            content: "";
+            mask-image: linear-gradient(90deg, transparent 25%, #000 100%);
+            opacity: 0.35;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.15fr) minmax(250px, 0.85fr);
+            align-items: center;
+            gap: clamp(2.5rem, 7vw, 6rem);
+        }
+
+        .eyebrow {
+            margin: 0 0 1rem;
+            color: var(--accent);
+            font-size: 0.76rem;
+            font-weight: 750;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        .hero .eyebrow {
+            color: #aabfff;
+        }
+
+        .hero h1 {
+            max-width: 680px;
+            margin: 0;
+            font-size: clamp(2.75rem, 7vw, 5rem);
+            font-weight: 760;
+            letter-spacing: -0.065em;
+            line-height: 1.03;
+        }
+
+        .hero h1 span {
+            color: #aabfff;
+        }
+
+        .hero-summary {
+            max-width: 610px;
+            margin: 1.45rem 0 0;
+            color: var(--hero-muted);
+            font-size: clamp(1rem, 2vw, 1.12rem);
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 2rem;
+        }
+
+        .button {
+            display: inline-flex;
+            min-height: 2.9rem;
+            align-items: center;
+            justify-content: center;
+            gap: 0.55rem;
+            padding: 0.7rem 1.1rem;
+            border: 1px solid transparent;
+            border-radius: 0.7rem;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+        }
+
+        .button-primary {
+            background: #dbe5ff;
+            color: #182b55;
+        }
+
+        .button-primary:hover {
+            background: #ffffff;
+        }
+
+        .button-secondary {
+            border-color: var(--hero-line);
+            background: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+        }
+
+        .button-secondary:hover {
+            border-color: rgba(255, 255, 255, 0.38);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-note {
+            display: flex;
+            align-items: center;
+            gap: 0.55rem;
+            margin: 1.65rem 0 0;
+            color: #ccd6e6;
+            font-size: 0.84rem;
+        }
+
+        .status-dot {
+            width: 0.5rem;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background: #79d4ab;
+            box-shadow: 0 0 0 4px rgba(121, 212, 171, 0.12);
+        }
+
+        .code-card {
+            padding: 1.2rem;
+            border: 1px solid var(--hero-line);
+            border-radius: 1rem;
+            background: rgba(255, 255, 255, 0.06);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.18);
+            backdrop-filter: blur(8px);
+        }
+
+        .code-topline {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--hero-line);
+        }
+
+        .window-dot {
+            width: 0.55rem;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background: #f28c87;
+        }
+
+        .window-dot:nth-child(2) {
+            background: #f3c66e;
+        }
+
+        .window-dot:nth-child(3) {
+            background: #76c9a1;
+        }
+
+        .code-title {
+            margin-left: auto;
+            color: var(--hero-muted);
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            font-size: 0.72rem;
+        }
+
+        .code-body {
+            overflow-x: auto;
+            padding-top: 1rem;
+            color: #e7edf7;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            font-size: clamp(0.75rem, 1.5vw, 0.88rem);
+            line-height: 2;
+        }
+
+        .code-line {
+            white-space: pre;
+        }
+
+        .code-number {
+            display: inline-block;
+            width: 2rem;
+            color: #7585a1;
+            user-select: none;
+        }
+
+        .code-keyword {
+            color: #c4a8ff;
+        }
+
+        .code-string {
+            color: #9bddbb;
+        }
+
+        .code-comment {
+            color: #93a2bb;
+        }
+
+        .section {
+            padding-block: clamp(3.75rem, 7vw, 5.75rem);
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .section-heading h2 {
+            margin: 0;
+            font-size: clamp(1.7rem, 4vw, 2.35rem);
+            letter-spacing: -0.045em;
+            line-height: 1.2;
+        }
+
+        .section-heading p {
+            max-width: 420px;
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.94rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+        }
+
+        .project-card,
+        .skill-card,
+        .education-card,
+        .achievement-card {
+            border: 1px solid var(--line);
+            border-radius: 1rem;
+            background: var(--surface);
+            box-shadow: var(--card-shadow);
+        }
+
+        .project-card {
+            display: flex;
+            min-height: 245px;
+            flex-direction: column;
+            padding: clamp(1.25rem, 3vw, 1.7rem);
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+            box-shadow: 0 20px 46px rgba(26, 43, 74, 0.1);
+        }
+
+        .project-index {
+            display: grid;
+            width: 2.55rem;
+            aspect-ratio: 1;
+            place-items: center;
+            border-radius: 0.75rem;
+            background: var(--accent-soft);
+            color: var(--accent);
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            font-size: 0.82rem;
+            font-weight: 750;
+        }
+
+        .project-card h3 {
+            margin: 1rem 0 0.4rem;
+            font-size: 1.15rem;
+            letter-spacing: -0.025em;
+        }
+
+        .project-card p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.91rem;
+        }
+
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+            margin-top: auto;
+            padding-top: 1.25rem;
+        }
+
+        .tag {
+            display: inline-flex;
+            padding: 0.25rem 0.55rem;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            color: var(--muted);
+            font-size: 0.73rem;
+            font-weight: 600;
+        }
+
+        .about-band {
+            background: var(--surface-soft);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1rem;
+        }
+
+        .skill-card {
+            padding: 1.3rem;
+            box-shadow: none;
+        }
+
+        .skill-card h3 {
+            margin: 0 0 0.75rem;
+            font-size: 1rem;
+        }
+
+        .skill-card p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.88rem;
+            line-height: 1.8;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1.8rem;
+        }
+
+        .education-card,
+        .achievement-card {
+            padding: clamp(1.3rem, 3vw, 1.8rem);
+            box-shadow: none;
+        }
+
+        .card-kicker {
+            margin: 0 0 0.55rem;
+            color: var(--accent);
+            font-size: 0.74rem;
+            font-weight: 750;
+            letter-spacing: 0.13em;
+            text-transform: uppercase;
+        }
+
+        .education-card h3,
+        .achievement-card h3 {
+            margin: 0;
+            font-size: 1.08rem;
+        }
+
+        .card-detail {
+            margin: 0.45rem 0 0;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .education-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-top: 1rem;
+        }
+
+        .education-stats span {
+            padding: 0.35rem 0.65rem;
+            border-radius: 0.55rem;
+            background: var(--surface-soft);
+            color: var(--muted);
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+
+        .contact-section {
+            padding-top: 0;
+        }
+
+        .contact-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            padding: clamp(1.6rem, 4vw, 2.7rem);
+            border-radius: 1.15rem;
+            background:
+                radial-gradient(ellipse at 90% 15%, rgba(89, 118, 195, 0.25), transparent 36%),
+                var(--hero);
+            color: #ffffff;
+        }
+
+        .contact-card h2 {
+            margin: 0;
+            font-size: clamp(1.7rem, 4vw, 2.25rem);
+            letter-spacing: -0.045em;
+            line-height: 1.2;
+        }
+
+        .contact-card p {
+            max-width: 550px;
+            margin: 0.7rem 0 0;
+            color: var(--hero-muted);
+        }
+
+        .contact-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+            flex-shrink: 0;
+        }
+
+        .contact-actions .button-primary {
+            background: #dbe5ff;
+            color: #182b55;
+        }
+
+        .contact-actions .button-secondary {
+            background: transparent;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.65rem 1.35rem;
+            margin-top: 1.25rem;
+        }
+
+        .contact-details a {
+            color: var(--hero-muted);
+            font-size: 0.88rem;
+            text-decoration-color: rgba(183, 196, 216, 0.45);
+            text-underline-offset: 3px;
+        }
+
+        .contact-details a:hover {
+            color: #ffffff;
+        }
+
+        footer {
+            padding: 1.5rem 0 2rem;
+            border-top: 1px solid var(--line);
+            color: var(--muted);
+            font-size: 0.82rem;
+        }
+
+        .footer-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        @media (max-width: 800px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .code-card {
+                max-width: 510px;
+            }
+
+            .skills-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .contact-card {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 1.4rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .nav-wrap,
+            .container {
+                width: min(100% - 2rem, 1120px);
+            }
+
+            .nav-wrap {
+                min-height: 68px;
+                flex-wrap: wrap;
+                gap: 0.55rem;
+                padding-block: 0.65rem;
+            }
+
+            .nav-links {
+                order: 3;
+                width: 100%;
+                justify-content: space-between;
+                gap: 0.65rem;
+                padding: 0.35rem 0 0.1rem;
+            }
+
+            .nav-links a {
+                font-size: 0.8rem;
+            }
+
+            .hero {
+                padding-block: 4rem;
+            }
+
+            .section-heading {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .projects-grid,
+            .skills-grid,
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project-card {
+                min-height: 220px;
+            }
+
+            .footer-wrap {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+        <nav class="nav-wrap" aria-label="Main navigation">
+            <a class="brand" href="#top" aria-label="Atharv Jangid, home">
+                <span class="brand-mark" aria-hidden="true">AJ</span>
+                <span>Atharv Jangid</span>
+            </a>
+            <div class="nav-links">
+                <a href="#projects">Projects</a>
+                <a href="#skills">Skills</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false" title="Switch to dark mode">
+                <svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20.5 15.5A8.5 8.5 0 0 1 8.5 3.5a8.5 8.5 0 1 0 12 12Z"></path>
+                </svg>
+                <svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="12" cy="12" r="4"></circle>
+                    <path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"></path>
+                </svg>
+            </button>
+        </nav>
+    </header>
+
+    <main id="main">
+        <section class="hero" id="top" aria-labelledby="hero-title">
+            <div class="container hero-grid">
+                <div>
+                    <p class="eyebrow">Python Developer · Jaipur, India</p>
+                    <h1 id="hero-title">Hi, I’m Atharv.<br><span>I build useful software.</span></h1>
+                    <p class="hero-summary">
+                        A third-semester Computer Science student at JECRC University, focused on Python development,
+                        database systems, and building practical web applications.
+                    </p>
+                    <div class="hero-actions">
+                        <a class="button button-primary" href="#projects">Explore my projects <span aria-hidden="true">↘</span></a>
+                        <a class="button button-secondary" href="./Atharv_Jangid_PythonDev_CV.pdf" download>Download my CV <span aria-hidden="true">↓</span></a>
+                    </div>
+                    <p class="hero-note"><span class="status-dot" aria-hidden="true"></span>Open to learning, building, and collaborating</p>
+                </div>
+
+                <div class="code-card" aria-label="A short introduction in Python">
+                    <div class="code-topline" aria-hidden="true">
+                        <span class="window-dot"></span>
+                        <span class="window-dot"></span>
+                        <span class="window-dot"></span>
+                        <span class="code-title">about_atharv.py</span>
+                    </div>
+                    <div class="code-body" aria-hidden="true">
+                        <div class="code-line"><span class="code-number">01</span><span class="code-keyword">class</span> Developer:</div>
+                        <div class="code-line"><span class="code-number">02</span>  name = <span class="code-string">"Atharv Jangid"</span></div>
+                        <div class="code-line"><span class="code-number">03</span>  focus = [<span class="code-string">"Python"</span>, <span class="code-string">"web"</span>]</div>
+                        <div class="code-line"><span class="code-number">04</span>  learning = <span class="code-string">"every day"</span></div>
+                        <div class="code-line"><span class="code-number">05</span></div>
+                        <div class="code-line"><span class="code-number">06</span>  <span class="code-keyword">def</span> build(self):</div>
+                        <div class="code-line"><span class="code-number">07</span>    <span class="code-keyword">return</span> <span class="code-string">"something useful"</span></div>
+                        <div class="code-line"><span class="code-number">08</span><span class="code-comment"># Keep exploring. Keep shipping.</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="projects" aria-labelledby="projects-title">
+            <div class="container">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">Selected work</p>
+                        <h2 id="projects-title">Projects I’ve built</h2>
+                    </div>
+                    <p>A few examples of the applications, tools, and experiments I’ve worked on.</p>
+                </div>
+
+                <div class="projects-grid">
+                    <article class="project-card">
+                        <span class="project-index" aria-hidden="true">01</span>
+                        <h3>Abhedya — Threat Actor Correlation</h3>
+                        <p>A dark web threat-actor correlation system built for a hackathon, with a web interface and REST API integration.</p>
+                        <div class="tag-list" aria-label="Technologies">
+                            <span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">React.js</span><span class="tag">TypeScript</span>
+                        </div>
+                    </article>
+                    <article class="project-card">
+                        <span class="project-index" aria-hidden="true">02</span>
+                        <h3>Student Database Management System</h3>
+                        <p>A normalized relational database paired with a C++ CRUD application to manage student records.</p>
+                        <div class="tag-list" aria-label="Technologies">
+                            <span class="tag">MySQL</span><span class="tag">C++</span><span class="tag">Database design</span>
+                        </div>
+                    </article>
+                    <article class="project-card">
+                        <span class="project-index" aria-hidden="true">03</span>
+                        <h3>Tetris Game</h3>
+                        <p>A playable Tetris game with piece rotation, collision detection, and a real-time game loop.</p>
+                        <div class="tag-list" aria-label="Technologies">
+                            <span class="tag">Python</span><span class="tag">Pygame</span><span class="tag">OOP</span>
+                        </div>
+                    </article>
+                    <article class="project-card">
+                        <span class="project-index" aria-hidden="true">04</span>
+                        <h3>Data Analysis &amp; CLI Tools</h3>
+                        <p>Data visualization experiments using Python, alongside small command-line utilities built in Node.js and C++.</p>
+                        <div class="tag-list" aria-label="Technologies">
+                            <span class="tag">Pandas</span><span class="tag">NumPy</span><span class="tag">Matplotlib</span><span class="tag">Node.js</span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="about-band" id="skills" aria-labelledby="skills-title">
+            <div class="container section">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">What I work with</p>
+                        <h2 id="skills-title">Skills &amp; tools</h2>
+                    </div>
+                    <p>Tools and technologies I’ve used in projects, coursework, and hackathon work.</p>
+                </div>
+
+                <div class="skills-grid">
+                    <article class="skill-card">
+                        <h3>Languages</h3>
+                        <p>Python · C++ · JavaScript · TypeScript</p>
+                    </article>
+                    <article class="skill-card">
+                        <h3>Backend &amp; data</h3>
+                        <p>FastAPI · MySQL · MongoDB · REST APIs</p>
+                    </article>
+                    <article class="skill-card">
+                        <h3>Frontend</h3>
+                        <p>HTML5 · CSS3 · React.js · Responsive layouts</p>
+                    </article>
+                    <article class="skill-card">
+                        <h3>Data &amp; visualization</h3>
+                        <p>Pandas · NumPy · Matplotlib</p>
+                    </article>
+                    <article class="skill-card">
+                        <h3>Tools &amp; version control</h3>
+                        <p>Git · GitHub · Node.js</p>
+                    </article>
+                    <article class="skill-card">
+                        <h3>Currently learning</h3>
+                        <p>Django · Stronger backend and database design</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="about" aria-labelledby="about-title">
+            <div class="container">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">A little about me</p>
+                        <h2 id="about-title">Learning by building</h2>
+                    </div>
+                    <p>I enjoy turning new ideas into working software and learning from real projects and team challenges.</p>
+                </div>
+
+                <div class="about-grid">
+                    <article class="education-card">
+                        <p class="card-kicker">Education</p>
+                        <h3>B.Tech, Computer Science Engineering</h3>
+                        <p class="card-detail">JECRC University, Jaipur · 2025–2029 · Currently pursuing</p>
+                        <div class="education-stats">
+                            <span>Current SGPA: 8.05</span>
+                            <span>Last year CGPA: 7.98</span>
+                            <span>Class XII: 78.80%</span>
+                            <span>Class X: 85.33%</span>
+                        </div>
+                    </article>
+                    <article class="achievement-card">
+                        <p class="card-kicker">Achievement · 2026</p>
+                        <h3>HackQuest 9.0 — SIH Preliminary Hackathon</h3>
+                        <p class="card-detail">
+                            Ranked in the top 50 of 525 competing teams at the Smart India Hackathon preliminary round,
+                            hosted at JECRC University. Built Abhedya with a team under hackathon conditions.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section contact-section" id="contact" aria-labelledby="contact-title">
+            <div class="container">
+                <div class="contact-card">
+                    <div>
+                        <p class="eyebrow">Get in touch</p>
+                        <h2 id="contact-title">Let’s build something useful.</h2>
+                        <p>Have a project idea, a collaboration in mind, or just want to talk about software? I’d be glad to hear from you.</p>
+                        <div class="contact-details">
+                            <a href="mailto:atharv.aarava@gmail.com">atharv.aarava@gmail.com</a>
+                            <a href="tel:+918949093115">+91 89490 93115</a>
+                            <span>Jaipur, Rajasthan, India</span>
+                        </div>
+                    </div>
+                    <div class="contact-actions">
+                        <a class="button button-primary" href="mailto:atharv.aarava@gmail.com">Email me <span aria-hidden="true">↗</span></a>
+                        <a class="button button-secondary" href="./Atharv_Jangid_PythonDev_CV.pdf" download>Download CV <span aria-hidden="true">↓</span></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-wrap">
+            <p>© <span id="current-year">2026</span> Atharv Jangid</p>
+            <p>Designed and built with care.</p>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggle = document.getElementById("theme-toggle");
+        const savedTheme = localStorage.getItem("profile-theme");
+
+        function setTheme(theme) {
+            document.body.dataset.theme = theme;
+            const isDark = theme === "dark";
+            const action = isDark ? "light" : "dark";
+            themeToggle.setAttribute("aria-label", `Switch to ${action} mode`);
+            themeToggle.setAttribute("aria-pressed", String(isDark));
+            themeToggle.title = `Switch to ${action} mode`;
+        }
+
+        setTheme(savedTheme === "dark" ? "dark" : "light");
+
+        themeToggle.addEventListener("click", () => {
+            const nextTheme = document.body.dataset.theme === "dark" ? "light" : "dark";
+            setTheme(nextTheme);
+            localStorage.setItem("profile-theme", nextTheme);
+        });
+
+        document.getElementById("current-year").textContent = String(new Date().getFullYear());
+    </script>
+</body>
+</html>
